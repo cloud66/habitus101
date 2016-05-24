@@ -1,0 +1,17 @@
+build:
+  version: 2016-02-13
+  steps:
+    builder:
+      name: builder
+      dockerfile: Dockerfile.builder
+      artifacts:
+        - /go/src/bitbucket.org/cloud66/iron-mountain/iron-mountain
+        - /go/src/bitbucket.org/cloud66/iron-mountain/config.json
+      cleanup:
+        commands:
+          - rm -rf /root/.ssh/
+    deployment:
+        name: cloud66/iron-mountain
+        dockerfile: Dockerfile.deployment
+        depends_on:
+          - builder
