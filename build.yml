@@ -1,17 +1,17 @@
 build:
-  version: 2016-02-13
+  version: 2016-03-14
   steps:
     builder:
       name: builder
       dockerfile: Dockerfile.builder
       artifacts:
-        - /go/src/bitbucket.org/cloud66/iron-mountain/iron-mountain
-        - /go/src/bitbucket.org/cloud66/iron-mountain/config.json
-      cleanup:
-        commands:
-          - rm -rf /root/.ssh/
+        - /go/src/github.com/cloud66/habitus101/habitus101
+      secrets:
+        id_rsa:
+          type: file
+          value: _env(HOME)/.ssh/id_rsa
     deployment:
-        name: cloud66/iron-mountain
+        name: cloud66/habitus101-runtime
         dockerfile: Dockerfile.deployment
         depends_on:
           - builder
